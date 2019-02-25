@@ -1,4 +1,4 @@
-# twitter-bot-rs
+# pm-twitter-bot
 Scans Helena Open prediction markets and
 post periodically a message on Twitter with the outcome probabilities
 
