@@ -1,8 +1,6 @@
 # twitter-bot-rs
-A Twitter bot written in Rust that scans crypto-currency values and
-post periodically a message on Twitter with the value of currencies.
-
-![example of tweet](misc/tweet.png)
+Scans Helena Open prediction markets and
+post periodically a message on Twitter with the outcome probabilities
 
 
 ## How to run it
@@ -15,8 +13,6 @@ post periodically a message on Twitter with the value of currencies.
   "consumer_key": "<consumer-key>",
   "consumer_secret": "<consumer-secret>",
   "access_key": "<access-key>",
-  "access_secret": "<access-secret>",
-  "currencies_to_follow" : ["BTC","LTC","ETH", "DASH", "ZEC", "XRP"],
-  "interval_sec" : 5
+  "access_secret": "<access-secret>"
 }
 ```
