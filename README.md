@@ -14,5 +14,7 @@ post periodically a message on Twitter with the outcome probabilities
   "consumer_secret": "<consumer-secret>",
   "access_key": "<access-key>",
   "access_secret": "<access-secret>"
+  "cron_expression": <cron_expression>
 }
 ```
+
