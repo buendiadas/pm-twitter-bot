@@ -1,4 +1,4 @@
-# twitter-bot-rs
+# pm-twitter-bot
 Scans Helena Open prediction markets and
 post periodically a message on Twitter with the outcome probabilities
 
@@ -14,5 +14,7 @@ post periodically a message on Twitter with the outcome probabilities
   "consumer_secret": "<consumer-secret>",
   "access_key": "<access-key>",
   "access_secret": "<access-secret>"
+  "cron_expression": <cron_expression>
 }
 ```
+

@@ -8,12 +8,14 @@ extern crate hyper;
 extern crate hyper_tls;
 extern crate twitter_api;
 extern crate oauth_client as oauth;
+extern crate job_scheduler;
 
-use std::time;
+use std::time::Duration;
 use std::env;
 use std::collections::HashMap;
 use std::path::Path;
 use std::path::PathBuf;
+use job_scheduler::{JobScheduler, Job};
 
 mod config;
 mod crawler;
@@ -26,7 +28,6 @@ const CONF_FILENAME: &'static str = ".crypto-bot.conf";
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Tweet {
     pub title: String,
-    pub outcomes: Vec<String>
     pub percentage: String,
     pub url: String,
 }
@@ -108,13 +109,21 @@ fn main() {
     let crawler = crawler::Crawler::new();
     let twitter = twitter::Twitter::new(config.consumer_key, config.consumer_secret,
                                         config.access_key, config.access_secret);
+    let res: Vec<crawler::Res> = crawler.get_markets();
+    let mut sched = JobScheduler::new();
 
-    let res: Vec<crawler::Res>;
-    res = crawler.get_markets();
-
-    for events in &res {
-            let tweet: Tweet = build_tweet(&events);
-            let msg_tw: String = build_message_from_tweet(&tweet);
-            twitter.tweet(msg_tw);
+    sched.add(Job::new(config.cron_expression.parse().unwrap(), || {
+        for events in &res {
+            if(&events.event.type_name == "CATEGORICAL"){
+                let tweet: Tweet = build_tweet(&events);
+                let msg_tw: String = build_message_from_tweet(&tweet);
+                //twitter.tweet(msg_tw);
+                println!("{}", msg_tw);
+            }
+        }
+    }));
+    loop {
+        sched.tick();
+        std::thread::sleep(Duration::from_millis(500));
     }
 }

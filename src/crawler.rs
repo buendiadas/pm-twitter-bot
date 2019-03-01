@@ -29,6 +29,8 @@ pub struct Contract {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Event { 
     pub oracle: Oracle,
+    #[serde(rename="type")]
+    pub type_name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -8,6 +8,7 @@ pub struct Config {
     pub consumer_secret : String,
     pub access_key : String,
     pub access_secret : String,
+    pub cron_expression: String, 
 }
 
 impl Config {
